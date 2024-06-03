@@ -4,14 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Colaboladores - BackOffice</title>
-    <link rel="stylesheet" href="../style_geral.css">
+    <link rel="stylesheet" href="../../style_geral.css">
     <link rel="stylesheet" href="colaboradores.css">
 </head>
 <body>
 
-    <h1>Colaboradores</h1>
+    <div id="topoJanela" class="topoJanela">
+        <div></div>
+        <div>Colaboradores</div>
+        <div>
+            <img src="../../imgs/add.svg" class="btn_mainoper" title="Adicionar novo operador">
+        </div>
+    </div>
 
-    <script src="../script_geral.js"></script>
+    <div id="novoColaborador" class="popup">
+        <div class="janelaPopup">
+            <div class="tituloPopup">
+                <div>Novo colaborador</div>
+                <img src="../../imgs/fechar.svg" class="btn_janelaoperar" id="btn_fechar">
+            </div>
+            <div class="corpoPopup">
+                <div class="campoForm">
+                    <label>Nome colaborador</label>
+                    <input type="text" id="f_nome" name="f_nome">
+                </div>
+                <div class="campoForm">
+                    <label>Tipo colaborador</label>
+                    <select name="F_tipo" id="F_tipo">
+                        <option>teste</option>
+                    </select>
+                </div>
+                <div class="campoForm">
+                    <label>Status</label>
+                    <select name="f_status" id="f_status">
+                        <option value="A">Ativo</option>
+                        <option value="I">Inativo</option>
+                    </select>
+                </div>
+                <div class="campoForm">
+                    <label>Telefones</label>
+                    <input type="text" id="f_nome" name="f_nome">
+                </div>
+            </div>
+            <div class="rodapePopup">
+                <button id="btn_gravar" class="btn_comandoPopup">Gravar</button>
+                <button id="btn_cancelar" class="btn_comandoPopup">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="grid" class="grid">
+        <div id="titulogrid" class="titulogrid">
+            <div class="colunaTituloGrid c1">ID</div>
+            <div class="colunaTituloGrid c2">Nome</div>
+            <div class="colunaTituloGrid c3">Tipo</div>
+            <div class="colunaTituloGrid c4">Status</div>
+            <div class="colunaTituloGrid c5">Operações</div>
+        </div>
+
+        <div id="dadosgrid" class="dadosgrid">
+            <!--
+            <div class="linhaGrid">
+                <div class="colunaLinhaGrid c1">ID</div>
+                <div class="colunaLinhaGrid c2">Nome</div>
+                <div class="colunaLinhaGrid c3">Tipo</div>
+                <div class="colunaLinhaGrid c4">Status</div>
+                <div class="colunaLinhaGrid c5">Operações</div>
+            </div>
+            -->
+        </div>
+    </div>
+
+    <script src="../../script_geral.js"></script>
     <script src="colaboradores.js"></script>
 </body>
 </html>

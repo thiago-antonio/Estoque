@@ -1,6 +1,16 @@
 * {
     margin: 0px;
     padding: 0px;
+    /*box-sizing: border-box;*/
+}
+
+:root{
+    --azul-principal: #005288;
+    --fundo-janela: #ccc;
+}
+
+body {
+    overflow: auto !important;
 }
 
 .menuPrincipal {
@@ -53,5 +63,163 @@
     width: inherit;
 }
 
+.principal {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    height: 100vh;
+}
+
+.fprincipal {
+    width: 100%;
+    height: 100%;
+    border: nome;
+}
+
+/* FORMATAÇÃO DE GRIDS*/
+.grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.titulogrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: var(--azul-principal);
+    color: #fff;
+}
+
+.colunaTituloGrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dadosgrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.linhaGrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.colunaLinhaGrid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}  
+/**********************/
+
+/* TOPO DA JANELA */
+.topoJanela {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px 10px 0px;
+}
+
+.btn_mainoper {
+    background-color: var(--azul-principal);
+    border-radius: 100px;
+    cursor: pointer;
+    width: 40px;
+}
+/**********************/
+
+/* JANELA NOVO */
+.popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100vh;
+}
+
+.janelaPopup {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 50%;
+}
+
+.tituloPopup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    background-color: var(--azul-principal);
+    padding: 5px;
+    border-radius: 5px 5px 0px 0px;
+    width: 100%;
+}
+
+.corpoPopup {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    background-color: var(--fundo-janela);
+    padding: 5px;
+    width: 100%;
+}
+
+.rodapePopup {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    background-color: var(--azul-principal);
+    width: 100%;
+    padding: 5px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.btn_janelaoperar {
+    width: 20px;
+    cursor: pointer;
+}
+
+.btn_comandoPopup {
+    background-color: #012d4b;
+    border: none;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.campoForm {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.campoForm input, .campoForm select {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/***************/
 
 
