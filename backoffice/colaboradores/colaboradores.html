@@ -13,15 +13,15 @@
         <div></div>
         <div>Colaboradores</div>
         <div>
-            <img src="../../imgs/add.svg" class="btn_mainoper" title="Adicionar novo operador">
+            <img src="../../imgs/add.svg" id="btn_add" class="btn_mainoper" title="Adicionar novo operador">
         </div>
     </div>
 
-    <div id="novoColaborador" class="popup">
+    <div id="novoColaborador" class="popup ocultarPopup">
         <div class="janelaPopup">
             <div class="tituloPopup">
                 <div>Novo colaborador</div>
-                <img src="../../imgs/fechar.svg" class="btn_janelaoperar" id="btn_fechar">
+                <img src="../../imgs/fechar.svg" class="btn_janelaoperar" id="btn_fecharPopup">
             </div>
             <div class="corpoPopup">
                 <div class="campoForm">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="campoForm">
                     <label>Tipo colaborador</label>
-                    <select name="F_tipo" id="F_tipo">
+                    <select name="f_tipoColab" id="f_tipoColab">
                         <option>teste</option>
                     </select>
                 </div>
@@ -44,11 +44,17 @@
                 <div class="campoForm">
                     <label>Telefones</label>
                     <input type="text" id="f_nome" name="f_nome">
+                    <div id="telefones">
+                        <div class="tel">
+                            <div>000000</div>
+                            <div class="delTel">X</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="rodapePopup">
-                <button id="btn_gravar" class="btn_comandoPopup">Gravar</button>
-                <button id="btn_cancelar" class="btn_comandoPopup">Cancelar</button>
+                <button id="btn_gravarPopup" class="btn_comandoPopup">Gravar</button>
+                <button id="btn_cancelarPopup" class="btn_comandoPopup">Cancelar</button>
             </div>
         </div>
     </div>

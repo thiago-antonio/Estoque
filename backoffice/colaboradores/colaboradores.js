@@ -1,10 +1,16 @@
 const dadosgrid = document.querySelector("#dadosgrid")
+const btn_add = document.querySelector("#btn_add")
+const novoColaborador = document.querySelector("#novoColaborador")
+const btn_fecharPopup = document.querySelector("#btn_fecharPopup")
+const btn_gravarPopup = document.querySelector("#btn_gravarPopup")
+const btn_cancelarPopup = document.querySelector("#btn_cancelarPopup")
+const f_tipoColab = document.querySelector("#f_tipoColab")
 
 const endpoint_todoscolabodores = `http://127.0.0.1:1880/todosusuarios`
 fetch(endpoint_todoscolabodores)
 .then(res=>res.json())
 .then(res=>{
-    console.log(res)
+    /*console.log(res)*/
     dadosgrid.innerHTML = ""
     res.forEach(e=>{
       const divlinha = document.createElement("div")  
@@ -36,4 +42,32 @@ fetch(endpoint_todoscolabodores)
 
       dadosgrid.appendChild(divlinha)
     });
+})
+
+const endpoint_tiposColab = `http://127.0.0.1:1880/tiposcolab`
+fetch(endpoint_tiposColab)
+.then(res=>res.json())
+.then(res=>{
+  f_tipoColab.innerHTML = ""
+  res.forEach(e=>{
+    const opt = document.createElement("option")
+    opt.setAttribute("value",e.n_tipousuario_tipousuario)
+    opt.innerHTML = e.s_desc_tipousuario
+    f_tipoColab.appendChild(opt)
+  })
+})
+
+btn_add.addEventListener("click",(evt)=>{
+  novoColaborador.classList.remove("ocultarPopup")
+})
+
+btn_fecharPopup.addEventListener("click",(evt)=>{
+  novoColaborador.classList.add("ocultarPopup")
+})
+
+btn_gravarPopup.addEventListener("click",(evt)=>{
+  novoColaborador.classList.add("ocultarPopup")
+})
+btn_cancelarPopup.addEventListener("click",(evt)=>{
+  novoColaborador.classList.add("ocultarPopup")
 })
