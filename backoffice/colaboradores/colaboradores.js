@@ -75,6 +75,7 @@ btn_gravarPopup.addEventListener("click",(evt)=>{
   tels.forEach(t=>{
     nunTels.push(t.innerHTML)
   })
+
   const dados = {
     s_nome_usuario: f_nome.value,
     n_tipousuario_tipousuario: f_tipoColab.value,
@@ -82,32 +83,38 @@ btn_gravarPopup.addEventListener("click",(evt)=>{
     nuntelefones:nunTels  
   }
   console.log(dados)
-  //novoColaborador.classList.add("ocultarPopup")
+ // novoColaborador.classList.add("ocultarPopup")
 })
+
 btn_cancelarPopup.addEventListener("click",(evt)=>{
   novoColaborador.classList.add("ocultarPopup")
 })
 
 f_fone.addEventListener("keyup",(evt)=>{
   if(evt.key=="Enter"){
-    const divTel = document.createElement("div")
-    divTel.setAttribute("class","tel")
+    if(evt.target.value.length >= 8){
+      const divTel = document.createElement("div")
+      divTel.setAttribute("class","tel")
 
-    const nunTel = document.createElement("div")
-    nunTel.setAttribute("class","nunTel")
-    nunTel.innerHTML = evt.target.value
-    divTel.appendChild(nunTel)
+      const nunTel = document.createElement("div")
+      nunTel.setAttribute("class","nunTel")
+      nunTel.innerHTML = evt.target.value
+      divTel.appendChild(nunTel)
 
-    const delTel = document.createElement("img")
-    delTel.setAttribute("src","../../imgs/delete.svg")
-    delTel.setAttribute("class","delTel")
-    delTel.addEventListener("click",(evt)=>{
-      evt.target.parentNode.remove()
-    })
-    divTel.appendChild(delTel)
+      const delTel = document.createElement("img")
+      delTel.setAttribute("src","../../imgs/delete.svg")
+      delTel.setAttribute("class","delTel")
+      delTel.addEventListener("click",(evt)=>{
+        evt.target.parentNode.remove()
+      })
+      divTel.appendChild(delTel)
 
-    telefones.appendChild(divTel)
-    evt.target.value = ""
+      telefones.appendChild(divTel)
+      
+      evt.target.value = ""
+    }else {
+      alert("Numero de  telefone invalido")
+    }
   }
   
 })
