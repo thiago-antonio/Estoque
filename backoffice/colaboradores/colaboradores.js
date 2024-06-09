@@ -9,6 +9,8 @@ const f_fone = document.querySelector("#f_fone")
 const f_nome = document.querySelector("#f_nome")
 const f_tipoColab = document.querySelector("#f_tipoColab")
 const f_status = document.querySelector("#f_status")
+const f_foto = document.querySelector("#f_foto")
+const img_foto = document.querySelector("#img_foto")
 
 const endpoint_todoscolabodores = `http://127.0.0.1:1880/todosusuarios`
 fetch(endpoint_todoscolabodores)
@@ -76,13 +78,29 @@ btn_gravarPopup.addEventListener("click",(evt)=>{
     nunTels.push(t.innerHTML)
   })
 
-  const dados = {
-    s_nome_usuario: f_nome.value,
-    n_tipousuario_tipousuario: f_tipoColab.value,
-    c_status_usuario: f_status.value,
-    nuntelefones:nunTels  
+const dados = {
+  s_nome_usuario: f_nome.value,
+  n_tipousuario_tipousuario: f_tipoColab.value,
+  c_status_usuario: f_status.value,
+  nuntelefones:nunTels,  
+  s_foto_usuario: img_foto.getAttribute("sr")
+}
+
+const  cab = {
+  method: 'post',
+  data:JSON.stringify(dados)
+}
+
+const endpointnovocolab = `http://127.0.0.1:1880/novocolab`
+fetch(endpointnovocolab,cab)
+.then(res=>{
+  if(res.status==200){
+    alert("Novo colaborador gravado")
+  }else {
+    alert("Erro ao gravar novo colaborador")
   }
-  console.log(dados)
+})
+  
  // novoColaborador.classList.add("ocultarPopup")
 })
 
@@ -92,7 +110,7 @@ btn_cancelarPopup.addEventListener("click",(evt)=>{
 
 f_fone.addEventListener("keyup",(evt)=>{
   if(evt.key=="Enter"){
-    if(evt.target.value.length >= 8){
+    if(evt.target.value.length >= 8) {
       const divTel = document.createElement("div")
       divTel.setAttribute("class","tel")
 
@@ -113,8 +131,23 @@ f_fone.addEventListener("keyup",(evt)=>{
       
       evt.target.value = ""
     }else {
-      alert("Numero de  telefone invalido")
+      alert("Numero de telefone invalido")
     }
+    
   }
-  
+})
+
+const converte_imagem_b64 = (localDestino,arquivoimg)=> {
+  const obj = arquivoimg
+  const reader = new FileReader()
+  reader.addEventListener("load",(evt)=>{
+    localDestino.src=reader.result
+  })
+  if(obj){
+    reader.readAsDataURL(obj)
+  }
+}
+
+f_foto.addEventListener("change",(evt)=> {
+  converte_imagem_b64(img_foto,evt.target.files[0])
 })
