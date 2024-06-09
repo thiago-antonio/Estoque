@@ -83,12 +83,12 @@ const dados = {
   n_tipousuario_tipousuario: f_tipoColab.value,
   c_status_usuario: f_status.value,
   nuntelefones:nunTels,  
-  s_foto_usuario: img_foto.getAttribute("sr")
+  s_foto_usuario: img_foto.getAttribute("src")
 }
 
 const  cab = {
   method: 'post',
-  data:JSON.stringify(dados)
+  body:JSON.stringify(dados)
 }
 
 const endpointnovocolab = `http://127.0.0.1:1880/novocolab`
