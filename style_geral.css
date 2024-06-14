@@ -102,9 +102,9 @@ body {
 
 .dadosgrid {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
 }
 
 .linhaGrid {

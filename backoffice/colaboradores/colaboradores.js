@@ -73,6 +73,7 @@ btn_fecharPopup.addEventListener("click",(evt)=>{
 
 btn_gravarPopup.addEventListener("click",(evt)=>{
   const tels = [...document.querySelectorAll(".nunTel")]
+  console.log(tels)
   let nunTels = []
   tels.forEach(t=>{
     nunTels.push(t.innerHTML)
@@ -96,6 +97,12 @@ fetch(endpointnovocolab,cab)
 .then(res=>{
   if(res.status==200){
     alert("Novo colaborador gravado")
+    f_nome.value = ""
+    f_tipoColab.value = ""
+    f_status.value = ""
+    f_foto.value = ""
+    img_foto.setAttribute("src","#")
+    telefones.innerHTML = ""
   }else {
     alert("Erro ao gravar novo colaborador")
   }
