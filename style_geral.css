@@ -113,6 +113,14 @@ body {
     align-items: center;
 }
 
+.linhaGrid:nth-child(even) {
+    background-color: #fff;
+}
+
+.linhaGrid:nth-child(odd) {
+    background-color: #ddd;
+}
+
 .colunaLinhaGrid {
     display: flex;
     justify-content: center;
