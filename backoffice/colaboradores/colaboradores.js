@@ -12,11 +12,11 @@ const f_status = document.querySelector("#f_status")
 const f_foto = document.querySelector("#f_foto")
 const img_foto = document.querySelector("#img_foto")
 
-const endpoint_todoscolabodores = `http://127.0.0.1:1880/todosusuarios`
-fetch(endpoint_todoscolabodores)
+const endpoint_todoscolaboradores = `http://127.0.0.1:1880/todosusuarios`
+fetch(endpoint_todoscolaboradores)
 .then(res=>res.json())
 .then(res=>{
-    /*console.log(res)*/
+    console.log(res)
     dadosgrid.innerHTML = ""
     res.forEach(e=>{
       const divlinha = document.createElement("div")  
@@ -46,6 +46,21 @@ fetch(endpoint_todoscolabodores)
       divc5.setAttribute("class","colunaTituloGrid c5")
       divlinha.appendChild(divc5)
 
+      const img_status = document.createElement("img")  
+      img_status.setAttribute("src","../../imgs/on.svg")
+      img_status.setAttribute("class","icone_op")
+      divc5.appendChild(img_status)
+
+      const img_editar = document.createElement("img")  
+      img_editar.setAttribute("src","../../imgs/edit.svg")
+      img_editar.setAttribute("class","icone_op")
+      divc5.appendChild(img_editar)
+
+      const img_remover = document.createElement("img")  
+      img_remover.setAttribute("src","../../imgs/delete.svg")
+      img_remover.setAttribute("class","icone_op")
+      divc5.appendChild(img_remover)
+
       dadosgrid.appendChild(divlinha)
     });
 })
@@ -73,7 +88,7 @@ btn_fecharPopup.addEventListener("click",(evt)=>{
 
 btn_gravarPopup.addEventListener("click",(evt)=>{
   const tels = [...document.querySelectorAll(".nunTel")]
-  console.log(tels)
+  /*console.log(tels)*/
   let nunTels = []
   tels.forEach(t=>{
     nunTels.push(t.innerHTML)

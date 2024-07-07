@@ -114,11 +114,16 @@ body {
 }
 
 .linhaGrid:nth-child(even) {
-    background-color: #fff;
+    background-color: #eee;
 }
 
 .linhaGrid:nth-child(odd) {
-    background-color: #ddd;
+    background-color: #ccc;
+}
+
+.linhaGrid:hover {
+    background-color: #0ac !important;
+    color: #fff !important;
 }
 
 .colunaLinhaGrid {
@@ -126,6 +131,11 @@ body {
     justify-content: center;
     align-items: center;
 }  
+
+.icone_op {
+    width: 25px;
+    cursor: pointer;
+}
 /**********************/
 
 /* TOPO DA JANELA */
