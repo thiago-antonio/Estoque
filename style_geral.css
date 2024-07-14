@@ -78,6 +78,15 @@ body {
 }
 
 /* FORMATAÇÃO DE GRIDS*/
+.areaGrig {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+}
+
 .grid {
     display: flex;
     justify-content: center;

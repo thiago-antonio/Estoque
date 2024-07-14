@@ -12,6 +12,9 @@ const f_status = document.querySelector("#f_status")
 const f_foto = document.querySelector("#f_foto")
 const img_foto = document.querySelector("#img_foto")
 
+// n=Novo colaborador | e=Editar Colaborador 
+let modojanela = "n"
+
 const endpoint_todoscolaboradores = `http://127.0.0.1:1880/todosusuarios`
 fetch(endpoint_todoscolaboradores)
 .then(res=>res.json())
@@ -46,14 +49,20 @@ fetch(endpoint_todoscolaboradores)
       divc5.setAttribute("class","colunaTituloGrid c5")
       divlinha.appendChild(divc5)
 
-      const img_status = document.createElement("img")  
-      img_status.setAttribute("src","../../imgs/on.svg")
-      img_status.setAttribute("class","icone_op")
-      divc5.appendChild(img_status)
+      //const img_status = document.createElement("img")  
+      //img_status.setAttribute("src","../../imgs/on.svg")
+      //img_status.setAttribute("class","icone_op")
+      //divc5.appendChild(img_status)
 
       const img_editar = document.createElement("img")  
       img_editar.setAttribute("src","../../imgs/edit.svg")
       img_editar.setAttribute("class","icone_op")
+      img_editar.addEventListener("click",(evt)=>{
+        const id=evt.target.parentNode.parentNode.firstChild.innerHTML
+        modojanela = "e"
+        document.getElementById("tituloPopup").innerHTML="Editar Colaborador"
+        novoColaborador.classList.remove("ocultarPopup")
+      })
       divc5.appendChild(img_editar)
 
       const img_remover = document.createElement("img")  
@@ -79,6 +88,8 @@ fetch(endpoint_tiposColab)
 })
 
 btn_add.addEventListener("click",(evt)=>{
+  modojanela = "n"
+  document.getElementById("tituloPopup").innerHTML="Novo Colaborador"
   novoColaborador.classList.remove("ocultarPopup")
 })
 
