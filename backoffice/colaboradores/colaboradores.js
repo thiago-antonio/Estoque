@@ -15,11 +15,31 @@ const img_foto = document.querySelector("#img_foto")
 // n=Novo colaborador | e=Editar Colaborador 
 let modojanela = "n"
 
+const criarCxTelefone=(fone)=>{
+  const divTel = document.createElement("div")
+  divTel.setAttribute("class","tel")
+
+  const nunTel = document.createElement("div")
+  nunTel.setAttribute("class","nunTel")
+  nunTel.innerHTML = fone
+  divTel.appendChild(nunTel)
+
+  const delTel = document.createElement("img")
+  delTel.setAttribute("src","../../imgs/delete.svg")
+  delTel.setAttribute("class","delTel")
+  delTel.addEventListener("click",(evt)=>{
+    evt.target.parentNode.remove()
+  })
+  divTel.appendChild(delTel)
+
+  telefones.appendChild(divTel)
+}
+
 const endpoint_todoscolaboradores = `http://127.0.0.1:1880/todosusuarios`
 fetch(endpoint_todoscolaboradores)
 .then(res=>res.json())
 .then(res=>{
-    console.log(res)
+    //console.log(res)
     dadosgrid.innerHTML = ""
     res.forEach(e=>{
       const divlinha = document.createElement("div")  
@@ -61,8 +81,28 @@ fetch(endpoint_todoscolaboradores)
         const id=evt.target.parentNode.parentNode.firstChild.innerHTML
         modojanela = "e"
         document.getElementById("tituloPopup").innerHTML="Editar Colaborador"
-        novoColaborador.classList.remove("ocultarPopup")
+        let endpoint =`http://127.0.0.1:1880/dadoscolab/${id}`
+        fetch(endpoint)
+        .then(res=>res.json())
+        .then(res=>{
+          f_nome.value=res[0].s_nome_usuario
+          f_tipoColab.value=res[0].n_tipousuario_tipousuario 
+          f_status.value=res[0].c_status_usuario
+          img_foto.src=res[0].s_foto_usuario
+          novoColaborador.classList.remove("ocultarPopup")
+        })
+
+        endpoint =`http://127.0.0.1:1880/telefonescolab/${id}`
+        fetch(endpoint)
+        .then(res=>res.json())
+        .then(res=>{
+          telefones.innerHTML = ""
+          res.forEach(t=>{
+            criarCxTelefone(t.s_numero_telefone)
+          })
+        })
       })
+
       divc5.appendChild(img_editar)
 
       const img_remover = document.createElement("img")  
@@ -144,24 +184,7 @@ btn_cancelarPopup.addEventListener("click",(evt)=>{
 f_fone.addEventListener("keyup",(evt)=>{
   if(evt.key=="Enter"){
     if(evt.target.value.length >= 8) {
-      const divTel = document.createElement("div")
-      divTel.setAttribute("class","tel")
-
-      const nunTel = document.createElement("div")
-      nunTel.setAttribute("class","nunTel")
-      nunTel.innerHTML = evt.target.value
-      divTel.appendChild(nunTel)
-
-      const delTel = document.createElement("img")
-      delTel.setAttribute("src","../../imgs/delete.svg")
-      delTel.setAttribute("class","delTel")
-      delTel.addEventListener("click",(evt)=>{
-        evt.target.parentNode.remove()
-      })
-      divTel.appendChild(delTel)
-
-      telefones.appendChild(divTel)
-      
+      criarCxTelefone(evt.target.value)      
       evt.target.value = ""
     }else {
       alert("Numero de telefone invalido")
