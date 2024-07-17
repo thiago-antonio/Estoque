@@ -15,7 +15,7 @@ const img_foto = document.querySelector("#img_foto")
 // n=Novo colaborador | e=Editar Colaborador 
 let modojanela = "n"
 
-const criarCxTelefone=(fone)=>{
+const criarCxTelefone=(fone,idtel)=>{
   const divTel = document.createElement("div")
   divTel.setAttribute("class","tel")
 
@@ -27,8 +27,17 @@ const criarCxTelefone=(fone)=>{
   const delTel = document.createElement("img")
   delTel.setAttribute("src","../../imgs/delete.svg")
   delTel.setAttribute("class","delTel")
+  delTel.setAttribute("data-idtel",idtel)
   delTel.addEventListener("click",(evt)=>{
-    evt.target.parentNode.remove()
+    const objTel = evt.target
+    const idtel=objTel.dataset.idtel
+    const endpoint_delTelefone = `http://127.0.0.1:1880/deltelefone/${idtel}`
+    fetch(endpoint_delTelefone)
+    .then(res=>{
+        if(res.status==200) {
+          evt.target.parentNode.remove()
+        }
+    })
   })
   divTel.appendChild(delTel)
 
@@ -98,7 +107,7 @@ fetch(endpoint_todoscolaboradores)
         .then(res=>{
           telefones.innerHTML = ""
           res.forEach(t=>{
-            criarCxTelefone(t.s_numero_telefone)
+            criarCxTelefone(t.s_numero_telefone,t.n_telefone_telefone)
           })
         })
       })
