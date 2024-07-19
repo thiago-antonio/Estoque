@@ -15,12 +15,16 @@ const img_foto = document.querySelector("#img_foto")
 // n=Novo colaborador | e=Editar Colaborador 
 let modojanela = "n"
 
-const criarCxTelefone=(fone,idtel)=>{
+const criarCxTelefone=(fone,idtel,tipo)=>{
   const divTel = document.createElement("div")
   divTel.setAttribute("class","tel")
 
   const nunTel = document.createElement("div")
-  nunTel.setAttribute("class","nunTel")
+  if(tipo=="n") {
+    nunTel.setAttribute("class","nunTel novoTel")
+  }else {
+    nunTel.setAttribute("class","nunTel editarTel")
+  }
   nunTel.innerHTML = fone
   divTel.appendChild(nunTel)
 
@@ -29,15 +33,20 @@ const criarCxTelefone=(fone,idtel)=>{
   delTel.setAttribute("class","delTel")
   delTel.setAttribute("data-idtel",idtel)
   delTel.addEventListener("click",(evt)=>{
-    const objTel = evt.target
-    const idtel=objTel.dataset.idtel
-    const endpoint_delTelefone = `http://127.0.0.1:1880/deltelefone/${idtel}`
-    fetch(endpoint_delTelefone)
-    .then(res=>{
-        if(res.status==200) {
-          evt.target.parentNode.remove()
-        }
-    })
+    if(idtel!="-1"){
+      const objTel = evt.target
+      const idtel=objTel.dataset.idtel
+      const endpoint_delTelefone = `http://127.0.0.1:1880/deltelefone/${idtel}`
+      fetch(endpoint_delTelefone)
+      .then(res=>{
+          if(res.status==200) {
+            evt.target.parentNode.remove()
+          }
+      })
+    }else{
+      evt.target.parentNode.remove()
+    }
+    
   })
   divTel.appendChild(delTel)
 
@@ -107,7 +116,7 @@ fetch(endpoint_todoscolaboradores)
         .then(res=>{
           telefones.innerHTML = ""
           res.forEach(t=>{
-            criarCxTelefone(t.s_numero_telefone,t.n_telefone_telefone)
+            criarCxTelefone(t.s_numero_telefone,t.n_telefone_telefone, "e")
           })
         })
       })
@@ -147,7 +156,7 @@ btn_fecharPopup.addEventListener("click",(evt)=>{
 })
 
 btn_gravarPopup.addEventListener("click",(evt)=>{
-  const tels = [...document.querySelectorAll(".nunTel")]
+  const tels = [...document.querySelectorAll(".novoTel")]
   /*console.log(tels)*/
   let nunTels = []
   tels.forEach(t=>{
@@ -193,7 +202,7 @@ btn_cancelarPopup.addEventListener("click",(evt)=>{
 f_fone.addEventListener("keyup",(evt)=>{
   if(evt.key=="Enter"){
     if(evt.target.value.length >= 8) {
-      criarCxTelefone(evt.target.value)      
+       criarCxTelefone(evt.target.value,"-1","n")      
       evt.target.value = ""
     }else {
       alert("Numero de telefone invalido")
