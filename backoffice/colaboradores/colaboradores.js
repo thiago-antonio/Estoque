@@ -52,86 +52,88 @@ const criarCxTelefone=(fone,idtel,tipo)=>{
 
   telefones.appendChild(divTel)
 }
+const CarregarTodosColabs=()=>{
+  const endpoint_todoscolaboradores = `http://127.0.0.1:1880/todosusuarios`
+  fetch(endpoint_todoscolaboradores)
+  .then(res=>res.json())
+  .then(res=>{
+      //console.log(res)
+      dadosgrid.innerHTML = ""
+      res.forEach(e=>{
+        const divlinha = document.createElement("div")  
+        divlinha.setAttribute("class","linhaGrid")
 
-const endpoint_todoscolaboradores = `http://127.0.0.1:1880/todosusuarios`
-fetch(endpoint_todoscolaboradores)
-.then(res=>res.json())
-.then(res=>{
-    //console.log(res)
-    dadosgrid.innerHTML = ""
-    res.forEach(e=>{
-      const divlinha = document.createElement("div")  
-      divlinha.setAttribute("class","linhaGrid")
+        const divc1 = document.createElement("div")  
+        divc1.setAttribute("class","colunaTituloGrid c1")
+        divc1.innerHTML=e.n_usuario_usuario
+        divlinha.appendChild(divc1)
 
-      const divc1 = document.createElement("div")  
-      divc1.setAttribute("class","colunaTituloGrid c1")
-      divc1.innerHTML=e.n_usuario_usuario
-      divlinha.appendChild(divc1)
+        const divc2 = document.createElement("div")  
+        divc2.setAttribute("class","colunaTituloGrid c2")
+        divc2.innerHTML=e.s_nome_usuario
+        divlinha.appendChild(divc2)
 
-      const divc2 = document.createElement("div")  
-      divc2.setAttribute("class","colunaTituloGrid c2")
-      divc2.innerHTML=e.s_nome_usuario
-      divlinha.appendChild(divc2)
+        const divc3 = document.createElement("div")  
+        divc3.setAttribute("class","colunaTituloGrid c3")
+        divc3.innerHTML=e.n_tipousuario_tipousuario 
+        divlinha.appendChild(divc3)
 
-      const divc3 = document.createElement("div")  
-      divc3.setAttribute("class","colunaTituloGrid c3")
-      divc3.innerHTML=e.n_tipousuario_tipousuario 
-      divlinha.appendChild(divc3)
+        const divc4 = document.createElement("div")  
+        divc4.setAttribute("class","colunaTituloGrid c4")
+        divc4.innerHTML=e.c_status_usuario
+        divlinha.appendChild(divc4)
 
-      const divc4 = document.createElement("div")  
-      divc4.setAttribute("class","colunaTituloGrid c4")
-      divc4.innerHTML=e.c_status_usuario
-      divlinha.appendChild(divc4)
+        const divc5 = document.createElement("div")  
+        divc5.setAttribute("class","colunaTituloGrid c5")
+        divlinha.appendChild(divc5)
 
-      const divc5 = document.createElement("div")  
-      divc5.setAttribute("class","colunaTituloGrid c5")
-      divlinha.appendChild(divc5)
+        //const img_status = document.createElement("img")  
+        //img_status.setAttribute("src","../../imgs/on.svg")
+        //img_status.setAttribute("class","icone_op")
+        //divc5.appendChild(img_status)
 
-      //const img_status = document.createElement("img")  
-      //img_status.setAttribute("src","../../imgs/on.svg")
-      //img_status.setAttribute("class","icone_op")
-      //divc5.appendChild(img_status)
+        const img_editar = document.createElement("img")  
+        img_editar.setAttribute("src","../../imgs/edit.svg")
+        img_editar.setAttribute("class","icone_op")
+        img_editar.addEventListener("click",(evt)=>{
+          const id=evt.target.parentNode.parentNode.firstChild.innerHTML
+          modojanela = "e"
+          document.getElementById("tituloPopup").innerHTML="Editar Colaborador"
+          let endpoint =`http://127.0.0.1:1880/dadoscolab/${id}`
+          fetch(endpoint)
+          .then(res=>res.json())
+          .then(res=>{
+            btn_gravarPopup.setAttribute("data-idcolab",id)
+            f_nome.value=res[0].s_nome_usuario
+            f_tipoColab.value=res[0].n_tipousuario_tipousuario 
+            f_status.value=res[0].c_status_usuario
+            img_foto.src=res[0].s_foto_usuario
+            novoColaborador.classList.remove("ocultarPopup")
+          })
 
-      const img_editar = document.createElement("img")  
-      img_editar.setAttribute("src","../../imgs/edit.svg")
-      img_editar.setAttribute("class","icone_op")
-      img_editar.addEventListener("click",(evt)=>{
-        const id=evt.target.parentNode.parentNode.firstChild.innerHTML
-        modojanela = "e"
-        document.getElementById("tituloPopup").innerHTML="Editar Colaborador"
-        let endpoint =`http://127.0.0.1:1880/dadoscolab/${id}`
-        fetch(endpoint)
-        .then(res=>res.json())
-        .then(res=>{
-          f_nome.value=res[0].s_nome_usuario
-          f_tipoColab.value=res[0].n_tipousuario_tipousuario 
-          f_status.value=res[0].c_status_usuario
-          img_foto.src=res[0].s_foto_usuario
-          novoColaborador.classList.remove("ocultarPopup")
-        })
-
-        endpoint =`http://127.0.0.1:1880/telefonescolab/${id}`
-        fetch(endpoint)
-        .then(res=>res.json())
-        .then(res=>{
-          telefones.innerHTML = ""
-          res.forEach(t=>{
-            criarCxTelefone(t.s_numero_telefone,t.n_telefone_telefone, "e")
+          endpoint =`http://127.0.0.1:1880/telefonescolab/${id}`
+          fetch(endpoint)
+          .then(res=>res.json())
+          .then(res=>{
+            telefones.innerHTML = ""
+            res.forEach(t=>{
+              criarCxTelefone(t.s_numero_telefone,t.n_telefone_telefone, "e")
+            })
           })
         })
-      })
 
-      divc5.appendChild(img_editar)
+        divc5.appendChild(img_editar)
 
-      const img_remover = document.createElement("img")  
-      img_remover.setAttribute("src","../../imgs/delete.svg")
-      img_remover.setAttribute("class","icone_op")
-      divc5.appendChild(img_remover)
+        const img_remover = document.createElement("img")  
+        img_remover.setAttribute("src","../../imgs/delete.svg")
+        img_remover.setAttribute("class","icone_op")
+        divc5.appendChild(img_remover)
 
-      dadosgrid.appendChild(divlinha)
-    });
-})
-
+        dadosgrid.appendChild(divlinha)
+      });
+  })
+}
+CarregarTodosColabs()
 const endpoint_tiposColab = `http://127.0.0.1:1880/tiposcolab`
 fetch(endpoint_tiposColab)
 .then(res=>res.json())
@@ -149,6 +151,12 @@ btn_add.addEventListener("click",(evt)=>{
   modojanela = "n"
   document.getElementById("tituloPopup").innerHTML="Novo Colaborador"
   novoColaborador.classList.remove("ocultarPopup")
+  f_nome.value = ""
+  f_tipoColab.value = ""
+  f_status.value = ""
+  f_foto.value = ""
+  img_foto.setAttribute("src","#")
+  telefones.innerHTML = ""
 })
 
 btn_fecharPopup.addEventListener("click",(evt)=>{
@@ -164,6 +172,7 @@ btn_gravarPopup.addEventListener("click",(evt)=>{
   })
 
 const dados = {
+  n_usuario_usuario : evt.target.dataset.idcolab,
   s_nome_usuario: f_nome.value,
   n_tipousuario_tipousuario: f_tipoColab.value,
   c_status_usuario: f_status.value,
@@ -176,17 +185,27 @@ const  cab = {
   body:JSON.stringify(dados)
 }
 
-const endpointnovocolab = `http://127.0.0.1:1880/novocolab`
-fetch(endpointnovocolab,cab)
+let endpointnovoeditarcolab = null
+if (modojanela=="n") {
+  endpointnovoeditarcolab = `http://127.0.0.1:1880/novocolab`
+}else {
+  endpointnovoeditarcolab = `http://127.0.0.1:1880/editarcolabe`
+}
+fetch(endpointnovoeditarcolab,cab)
 .then(res=>{
   if(res.status==200){
-    alert("Novo colaborador gravado")
-    f_nome.value = ""
-    f_tipoColab.value = ""
-    f_status.value = ""
-    f_foto.value = ""
-    img_foto.setAttribute("src","#")
-    telefones.innerHTML = ""
+    if(modojanela=="n") {
+      alert("Novo colaborador gravado")
+      f_nome.value = ""
+      f_tipoColab.value = ""
+      f_status.value = ""
+      f_foto.value = ""
+      img_foto.setAttribute("src","#")
+      telefones.innerHTML = ""
+      CarregarTodosColabs()
+    }else {
+      alert("Colaborador editado com sucesso!")
+    }  
   }else {
     alert("Erro ao gravar novo colaborador")
   }
