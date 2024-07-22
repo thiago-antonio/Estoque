@@ -14,6 +14,7 @@ const img_foto = document.querySelector("#img_foto")
 
 // n=Novo colaborador | e=Editar Colaborador 
 let modojanela = "n"
+const serv=sessionStorage.getItem("servidor_nodered")
 
 const criarCxTelefone=(fone,idtel,tipo)=>{
   const divTel = document.createElement("div")
@@ -36,7 +37,7 @@ const criarCxTelefone=(fone,idtel,tipo)=>{
     if(idtel!="-1"){
       const objTel = evt.target
       const idtel=objTel.dataset.idtel
-      const endpoint_delTelefone = `http://127.0.0.1:1880/deltelefone/${idtel}`
+      const endpoint_delTelefone = `${serv}/deltelefone/${idtel}`
       fetch(endpoint_delTelefone)
       .then(res=>{
           if(res.status==200) {
@@ -53,7 +54,7 @@ const criarCxTelefone=(fone,idtel,tipo)=>{
   telefones.appendChild(divTel)
 }
 const CarregarTodosColabs=()=>{
-  const endpoint_todoscolaboradores = `http://127.0.0.1:1880/todosusuarios`
+  const endpoint_todoscolaboradores = `${serv}/todosusuarios`
   fetch(endpoint_todoscolaboradores)
   .then(res=>res.json())
   .then(res=>{
@@ -87,10 +88,37 @@ const CarregarTodosColabs=()=>{
         divc5.setAttribute("class","colunaTituloGrid c5")
         divlinha.appendChild(divc5)
 
-        //const img_status = document.createElement("img")  
-        //img_status.setAttribute("src","../../imgs/on.svg")
-        //img_status.setAttribute("class","icone_op")
-        //divc5.appendChild(img_status)
+        const img_status = document.createElement("img")
+        if(e.c_status_usuario=="A"){
+          img_status.setAttribute("src","../../imgs/on.svg")
+        }else {
+          img_status.setAttribute("src","../../imgs/off.svg")
+        }  
+        img_status.setAttribute("data-idcolab",e.n_usuario_usuario)
+        img_status.setAttribute("class","icone_op")
+        img_status.addEventListener("click",(evt)=>{
+          const idcolab=evt.target.dataset.idcolab
+          if(evt.target.getAttribute("src")=="../../imgs/on.svg"){
+            const endpoint_mudarStatus=`${serv}/mudarStatusColab/${idcolab}/I`
+            fetch(endpoint_mudarStatus)
+            .then(res=>{
+              if(res.status==200){
+                evt.target.setAttribute("src","../../imgs/off.svg")
+                evt.target.parentNode.parentNode.childNodes[3].innerHTML="I"
+              }
+            })
+          }else {
+            const endpoint_mudarStatus=`${serv}/mudarStatusColab/${idcolab}/A`
+            fetch(endpoint_mudarStatus)
+            .then(res=>{
+              if(res.status==200){
+                evt.target.setAttribute("src","../../imgs/on.svg")
+                evt.target.parentNode.parentNode.childNodes[3].innerHTML="A"
+              }
+            })
+          }
+        })
+        divc5.appendChild(img_status)
 
         const img_editar = document.createElement("img")  
         img_editar.setAttribute("src","../../imgs/edit.svg")
@@ -99,7 +127,7 @@ const CarregarTodosColabs=()=>{
           const id=evt.target.parentNode.parentNode.firstChild.innerHTML
           modojanela = "e"
           document.getElementById("tituloPopup").innerHTML="Editar Colaborador"
-          let endpoint =`http://127.0.0.1:1880/dadoscolab/${id}`
+          let endpoint =`${serv}/dadoscolab/${id}`
           fetch(endpoint)
           .then(res=>res.json())
           .then(res=>{
@@ -111,7 +139,7 @@ const CarregarTodosColabs=()=>{
             novoColaborador.classList.remove("ocultarPopup")
           })
 
-          endpoint =`http://127.0.0.1:1880/telefonescolab/${id}`
+          endpoint =`${serv}/telefonescolab/${id}`
           fetch(endpoint)
           .then(res=>res.json())
           .then(res=>{
@@ -134,7 +162,7 @@ const CarregarTodosColabs=()=>{
   })
 }
 CarregarTodosColabs()
-const endpoint_tiposColab = `http://127.0.0.1:1880/tiposcolab`
+const endpoint_tiposColab = `${serv}/tiposcolab`
 fetch(endpoint_tiposColab)
 .then(res=>res.json())
 .then(res=>{
@@ -187,9 +215,9 @@ const  cab = {
 
 let endpointnovoeditarcolab = null
 if (modojanela=="n") {
-  endpointnovoeditarcolab = `http://127.0.0.1:1880/novocolab`
+  endpointnovoeditarcolab = `${serv}/novocolab`
 }else {
-  endpointnovoeditarcolab = `http://127.0.0.1:1880/editarcolabe`
+  endpointnovoeditarcolab = `${serv}/editarcolabe`
 }
 fetch(endpointnovoeditarcolab,cab)
 .then(res=>{
