@@ -11,10 +11,26 @@ const f_tipoColab = document.querySelector("#f_tipoColab")
 const f_status = document.querySelector("#f_status")
 const f_foto = document.querySelector("#f_foto")
 const img_foto = document.querySelector("#img_foto")
+const f_filtragem = document.querySelector("#f_filtragem")
 
 // n=Novo colaborador | e=Editar Colaborador 
 let modojanela = "n"
 const serv=sessionStorage.getItem("servidor_nodered")
+
+f_filtragem.addEventListener("keyup",(evt)=>{
+  const linhas =[...document.querySelectorAll(".linhaGrid")]
+  let input,texto,filtragem
+  input=evt.target
+  filtragem=input.value.toUpperCase()
+  for(let i=0;i<linhas.length;i++){
+    texto=linhas[i].children[1].innerHTML
+    if(texto.toUpperCase().indexOf(filtragem)>-1){
+      linhas[i].classList.remove("ocultarLinhaGrid")
+    }else {
+      linhas[i].classList.add("ocultarLinhaGrid")
+    }
+  }
+})
 
 const criarCxTelefone=(fone,idtel,tipo)=>{
   const divTel = document.createElement("div")
