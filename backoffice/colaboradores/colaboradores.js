@@ -2,6 +2,7 @@ const dadosgrid = document.querySelector("#dadosgrid")
 const btn_add = document.querySelector("#btn_add")
 const novoColaborador = document.querySelector("#novoColaborador")
 const btn_fecharPopup = document.querySelector("#btn_fecharPopup")
+const btn_fecharPopupPesq = document.querySelector("#btn_fecharPopupPesq")
 const btn_gravarPopup = document.querySelector("#btn_gravarPopup")
 const btn_cancelarPopup = document.querySelector("#btn_cancelarPopup")
 const telefones = document.querySelector("#telefones")
@@ -12,6 +13,8 @@ const f_status = document.querySelector("#f_status")
 const f_foto = document.querySelector("#f_foto")
 const img_foto = document.querySelector("#img_foto")
 const f_filtragem = document.querySelector("#f_filtragem")
+const pesquisar = document.querySelector("#pesquisar")
+const btn_pesq = document.querySelector("#btn_pesq")
 
 // n=Novo colaborador | e=Editar Colaborador 
 let modojanela = "n"
@@ -32,6 +35,13 @@ f_filtragem.addEventListener("keyup",(evt)=>{
   }
 })
 
+btn_fecharPopupPesq.addEventListener("click",(evt)=>{
+  pesquisar.classList.add("ocultarPopup")
+})
+
+btn_pesq.addEventListener("click",(evt)=>{
+  pesquisar.classList.remove("ocultarPopup")
+})
 const criarCxTelefone=(fone,idtel,tipo)=>{
   const divTel = document.createElement("div")
   divTel.setAttribute("class","tel")

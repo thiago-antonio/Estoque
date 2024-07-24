@@ -271,6 +271,13 @@ body {
     width: 300px;
 }
 
+.campoRadio {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+}
+
 .imputfiltragem {
     border: 3px solid #888 !important;
 }
