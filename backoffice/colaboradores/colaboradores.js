@@ -15,6 +15,9 @@ const img_foto = document.querySelector("#img_foto")
 const f_filtragem = document.querySelector("#f_filtragem")
 const pesquisar = document.querySelector("#pesquisar")
 const btn_pesq = document.querySelector("#btn_pesq")
+const f_pesqId = document.querySelector("#f_pesqId")
+const f_pesqNome = document.querySelector("#f_pesqNome")
+const btn_pesquisar = document.querySelector("#btn_pesquisar")
 
 // n=Novo colaborador | e=Editar Colaborador 
 let modojanela = "n"
@@ -42,6 +45,38 @@ btn_fecharPopupPesq.addEventListener("click",(evt)=>{
 btn_pesq.addEventListener("click",(evt)=>{
   pesquisar.classList.remove("ocultarPopup")
 })
+
+f_pesqId.addEventListener("click",(evt)=>{
+  f_pesq.value= ""
+  f_pesq.focus()
+})
+
+f_pesqNome.addEventListener("click",(evt)=>{
+  f_pesq.value= ""
+  f_pesq.focus()
+})
+
+btn_pesquisar.addEventListener("click",(evt)=>{
+  let tipo=null
+  if(f_pesqId.checked){
+    tipo="id"
+  }else {
+    tipo="nome"
+  }
+  if(f_pesq.value!=""){
+    const endpointpesq=`${serv}/pesquisacolab/${tipo}/${f_pesq.value}`
+    fetch(endpointpesq)
+    .then(res=>res.json())
+    .then(res=>{
+      console.log(res)
+    })
+    pesquisar.classList.add("ocultarPopup")
+  }else {
+    alert("Preencha o campo de pesquisa")
+    f_pesq.focus()
+  }
+})
+
 const criarCxTelefone=(fone,idtel,tipo)=>{
   const divTel = document.createElement("div")
   divTel.setAttribute("class","tel")
